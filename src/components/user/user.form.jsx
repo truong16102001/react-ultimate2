@@ -1,42 +1,71 @@
 import { Button, Input } from "antd";
 import { useState } from "react";
+import { createUserAPI } from "../../services/api.service";
+import { notifySuccess } from "../../utils/notify";
 const UserForm = () => {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const handleCreateBtnClicked = () =>{
-    console.log({fullName, email, password, phone})
-  }
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    phone: "",
+  });
+
+  const handleChange = (key, value) => {
+    setForm({ ...form, [key]: value });
+  };
+
+  const handleCreateBtnClicked = async () => {
+    // validate đơn giản
+    if (!form.email || !form.password) {
+      return alert("Email và password không được để trống");
+    }
+    try {
+      const res = await createUserAPI(form);
+
+      if (res?.data) {
+        notifySuccess("Create user successfully");
+
+        // reset form
+        setForm({
+          fullName: "",
+          email: "",
+          password: "",
+          phone: "",
+        });
+      }
+    } catch (error) {
+      // đã xử lý ở interceptor
+    }
+  };
   return (
     <div className="user-form" style={{ margin: "20px 0" }}>
       <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
         <div>
           <span>Full Name</span>
           <Input
-            value={fullName}
-            onChange={(event) => setFullName(event.target.value)}
+            value={form.fullName}
+            onChange={(e) => handleChange("fullName", e.target.value)}
           />
         </div>
         <div>
           <span>Email</span>
           <Input
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            value={form.email}
+            onChange={(e) => handleChange("email", e.target.value)}
           />
         </div>
         <div>
           <span>Password</span>
           <Input.Password
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
+            value={form.password}
+            onChange={(e) => handleChange("password", e.target.value)}
           />
         </div>
         <div>
           <span>Phone number</span>
           <Input
-            value={phone}
-            onChange={(event) => setPhone(event.target.value)}
+            value={form.phone}
+            onChange={(e) => handleChange("phone", e.target.value)}
           />
         </div>
         <div>
