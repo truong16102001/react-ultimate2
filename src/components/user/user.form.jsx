@@ -1,7 +1,7 @@
 import { Button, Input } from "antd";
 import { useState } from "react";
 import { createUserAPI } from "../../services/api.service";
-import { notifySuccess } from "../../utils/notify";
+import { notifyError, notifySuccess } from "../../utils/notify";
 const UserForm = () => {
   const [form, setForm] = useState({
     fullName: "",
@@ -15,26 +15,23 @@ const UserForm = () => {
   };
 
   const handleCreateBtnClicked = async () => {
-    // validate đơn giản
-    if (!form.email || !form.password) {
-      return alert("Email và password không được để trống");
-    }
-    try {
-      const res = await createUserAPI(form);
+    const res = await createUserAPI(form);
+    if (res?.data) {
+      notifySuccess("Create user successfully");
 
-      if (res?.data) {
-        notifySuccess("Create user successfully");
-
-        // reset form
-        setForm({
-          fullName: "",
-          email: "",
-          password: "",
-          phone: "",
-        });
-      }
-    } catch (error) {
-      // đã xử lý ở interceptor
+      // reset form
+      setForm({
+        fullName: "",
+        email: "",
+        password: "",
+        phone: "",
+      });
+    } else {
+       const errors = res?.message;
+       const errorMessage = Array.isArray(errors)
+         ? errors.map((e, i) => <div key={i}>- {e}</div>)
+         : errors;
+       notifyError(errorMessage);
     }
   };
   return (
