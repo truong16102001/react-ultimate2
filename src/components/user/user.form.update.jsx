@@ -4,7 +4,7 @@ import { updateUserAPI } from "../../services/api.service";
 import { notifyError, notifySuccess } from "../../utils/notify";
 
 const UserFormUpdate = (props) => {
-  const { updateUser, isOpenModal, setIsOpenModal, getAllUser } = props;
+  const { updateUser, setUpdateUser, isOpenModal, setIsOpenModal, getAllUser } = props;
   const [form, setForm] = useState({
     _id:"",
     fullName: "",
@@ -34,7 +34,6 @@ const UserFormUpdate = (props) => {
   };
 
   const handleUpdateBtnClicked = async () => {
-    console.log("form:",form);
     const res = await updateUserAPI(form);
     if (res?.data) {
           notifySuccess("Update user successfully");
@@ -61,7 +60,10 @@ const UserFormUpdate = (props) => {
         title="Update User"
         open={isOpenModal}
         onOk={handleUpdateBtnClicked}
-        onCancel={() => setIsOpenModal(false)}
+        onCancel={() => {
+            setIsOpenModal(false);
+            setUpdateUser(null);
+        }}
         maskClosable={false}
         okText={"UPDATE"}
       >
