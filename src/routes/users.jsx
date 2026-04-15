@@ -14,7 +14,6 @@ const User = () => {
     const res = await getAllUserAPI();
     setUsers(res.data);
   };
-  console.log("Parent render");
   return (
     <div style={{ padding: "20px" }}>
       <h1>User management</h1>

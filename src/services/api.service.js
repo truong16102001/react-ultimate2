@@ -10,7 +10,11 @@ const getAllUserAPI = () => {
 };
 
 const updateUserAPI = (data) => {
-  return axios.put(API_URL.UPDATE_USE, data);
+  return axios.put(API_URL.UPDATE_USER, data);
 }
 
-export { createUserAPI, getAllUserAPI, updateUserAPI };
+const deleteUserAPI = (id) => {
+  return axios.delete(`${API_URL.DELETE_USER}/${id}`);
+};
+
+export { createUserAPI, getAllUserAPI, updateUserAPI, deleteUserAPI };
