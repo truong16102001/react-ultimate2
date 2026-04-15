@@ -1,79 +1,38 @@
-import { Flex, Space, Table, Tag } from "antd";
+import { Table } from "antd";
+import { useEffect, useState } from "react";
+import { getAllUserAPI } from "../../services/api.service";
 const UserTable = () => {
+    const [users, setUsers] = useState([]);
+
+    useEffect(() =>{
+        getAllUser();
+    },[])
+
+    const getAllUser = async() =>{
+        const res = await getAllUserAPI();
+        setUsers(res.data);
+    }
+   
     const columns = [
-        {
-            title: "Name",
-            dataIndex: "name",
-            key: "name",
-            render: (text) => <a>{text}</a>,
-        },
-        {
-            title: "Age",
-            dataIndex: "age",
-            key: "age",
-        },
-        {
-            title: "Address",
-            dataIndex: "address",
-            key: "address",
-        },
-        {
-            title: "Tags",
-            key: "tags",
-            dataIndex: "tags",
-            render: (_, { tags }) => (
-            <Flex gap="small" align="center" wrap>
-                {tags.map((tag) => {
-                let color = tag.length > 5 ? "geekblue" : "green";
-                if (tag === "kawaii") {
-                    color = "volcano";
-                }
-                return (
-                    <Tag color={color} key={tag}>
-                    {tag.toUpperCase()}
-                    </Tag>
-                );
-                })}
-            </Flex>
-            ),
-        },
-        {
-            title: "Action",
-            key: "action",
-            render: (_, record) => (
-            <Space size="medium">
-                <a>Invite {record.name}</a>
-                <a>Delete</a>
-            </Space>
-            ),
-        },
+      {
+        title: "ID",
+        dataIndex: "_id",
+      },
+      {
+        title: "Name",
+        dataIndex: "fullName",
+      },
+      {
+        title: "Email",
+        dataIndex: "email",
+      },
+      {
+        title: "Phone Number",
+        dataIndex: "phone",
+      },
     ];
-    const data = [
-        {
-            key: "1",
-            name: "John Brown",
-            age: 32,
-            address: "New York No. 1 Lake Park",
-            tags: ["nice", "developer"],
-        },
-        {
-            key: "2",
-            name: "Jim Green",
-            age: 42,
-            address: "London No. 1 Lake Park",
-            tags: ["kawaii"],
-        },
-        {
-            key: "3",
-            name: "Joe Black",
-            age: 32,
-            address: "Sydney No. 1 Lake Park",
-            tags: ["cool", "teacher"],
-        },
-    ];
-    return(
-        <Table columns={columns} dataSource={data} />
-    )
+    
+    return <Table columns={columns} dataSource={users} rowKey={"_id"} />;
 }
 
 export default UserTable;

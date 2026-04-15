@@ -6,7 +6,6 @@ const UserForm = () => {
   const [form, setForm] = useState({
     fullName: "",
     email: "",
-    password: "",
     phone: "",
   });
 
@@ -23,7 +22,6 @@ const UserForm = () => {
       setForm({
         fullName: "",
         email: "",
-        password: "",
         phone: "",
       });
     } else {
@@ -49,13 +47,6 @@ const UserForm = () => {
           <Input
             value={form.email}
             onChange={(e) => handleChange("email", e.target.value)}
-          />
-        </div>
-        <div>
-          <span>Password</span>
-          <Input.Password
-            value={form.password}
-            onChange={(e) => handleChange("password", e.target.value)}
           />
         </div>
         <div>
