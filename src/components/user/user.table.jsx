@@ -1,12 +1,20 @@
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Table } from "antd";
+import UserFormUpdate from "./user.form.update";
+import { useState } from "react";
 
 const UserTable = (props) => {
-    const {users} = props;
-   
+    const {users, getAllUser} = props;
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [updateUser, setUpdateUser] = useState(null);
+
     const columns = [
       {
         title: "ID",
         dataIndex: "_id",
+        render: (_, record) => {
+          return <a href="#">{record._id}</a>;
+        },
       },
       {
         title: "Name",
@@ -20,9 +28,37 @@ const UserTable = (props) => {
         title: "Phone Number",
         dataIndex: "phone",
       },
+      {
+        title: "Action",
+        key: "action",
+        render: (_, record) => (
+          <div style={{ display: "flex", gap: "20px" }}>
+            <EditOutlined
+              onClick={() => {
+                setUpdateUser(record);
+                setIsOpenModal(true);
+              }} 
+              style={{ cursor: "pointer", color: "orange" }}
+            />
+            <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+          </div>
+        ),
+      },
     ];
-    
-    return <Table columns={columns} dataSource={users} rowKey={"_id"} />;
+    console.log("UserTable render");
+    return (
+      <>
+        <Table columns={columns} dataSource={users} rowKey="_id" />
+
+        <UserFormUpdate
+          updateUser={updateUser}
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+          setUpdateUser={setUpdateUser}
+          getAllUser={getAllUser}
+        />
+      </>
+    );
 }
 
 export default UserTable;

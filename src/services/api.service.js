@@ -5,8 +5,12 @@ const createUserAPI = (data) => {
   return axios.post(API_URL.CREATE_USER, data);
 };
 
-const getAllUserAPI = () =>{
-    return axios.get(API_URL.GET_ALL_USER);
+const getAllUserAPI = () => {
+  return axios.get(API_URL.GET_ALL_USER);
+};
+
+const updateUserAPI = (data) => {
+  return axios.put(API_URL.UPDATE_USE, data);
 }
 
-export {createUserAPI, getAllUserAPI}
+export { createUserAPI, getAllUserAPI, updateUserAPI };

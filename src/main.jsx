@@ -16,17 +16,17 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <TodoApp /> }, // default render in homepage
-      { path: "manage/users", element: <User /> },
-      { path: "manage/books", element: <Book /> },
+      { path: "users", element: <User /> },
+      { path: "books", element: <Book /> },
     ],
     errorElement: <Error/>
   },
-  { path: "/auth/login", element: <Login /> },
-  { path: "/auth/register", element: <Register /> },
+  { path: "login", element: <Login /> },
+  { path: "register", element: <Register /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  // </React.StrictMode>,
 );
