@@ -2,7 +2,7 @@ import { Button, Input , Modal} from "antd";
 import { useState } from "react";
 import { createUserAPI } from "../../services/api.service";
 import { notifyError, notifySuccess } from "../../utils/notify";
-const UserForm = () => {
+const UserForm = (props) => {
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -10,7 +10,7 @@ const UserForm = () => {
     phone: "",
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const { getAllUser } = props;
   const handleChange = (key, value) => {
     setForm({ ...form, [key]: value });
   };
@@ -27,6 +27,7 @@ const UserForm = () => {
         phone: "",
       });
       setIsModalOpen(false);
+      getAllUser();
     } else {
        const errors = res?.message;
        const errorMessage = Array.isArray(errors)
@@ -35,6 +36,7 @@ const UserForm = () => {
        notifyError(errorMessage);
     }
   };
+
   return (
     <div className="user-form-create" style={{ margin: "20px 0" }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>

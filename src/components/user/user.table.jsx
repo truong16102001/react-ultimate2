@@ -1,17 +1,7 @@
 import { Table } from "antd";
-import { useEffect, useState } from "react";
-import { getAllUserAPI } from "../../services/api.service";
-const UserTable = () => {
-    const [users, setUsers] = useState([]);
 
-    useEffect(() =>{
-        getAllUser();
-    },[])
-
-    const getAllUser = async() =>{
-        const res = await getAllUserAPI();
-        setUsers(res.data);
-    }
+const UserTable = (props) => {
+    const {users} = props;
    
     const columns = [
       {
