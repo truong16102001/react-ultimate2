@@ -17,4 +17,13 @@ const deleteUserAPI = (id) => {
   return axios.delete(`${API_URL.DELETE_USER}/${id}`);
 };
 
-export { createUserAPI, getAllUserAPI, updateUserAPI, deleteUserAPI };
+const uploadFileAPI = (file, uploadType) => {
+  return axios.post(API_URL.UPLOAD_FILE, file, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "upload-type" : uploadType
+    },
+  });
+}
+
+export { createUserAPI, getAllUserAPI, updateUserAPI, deleteUserAPI, uploadFileAPI };

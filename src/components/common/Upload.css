@@ -1,0 +1,43 @@
+.image-item .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.image-item:hover .overlay {
+    opacity: 1;
+}
+
+.image-item .overlay span {
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.image-item .overlay span:hover {
+    transform: scale(1.2);
+}
+
+/* upload box */
+.upload-box {
+    width: 120px;
+    height: 120px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    font-size: 20px;
+}

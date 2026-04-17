@@ -1,7 +1,9 @@
 import { Input, Modal } from "antd";
 import { useEffect, useState } from "react";
-import { updateUserAPI } from "../../services/api.service";
+import { updateUserAPI, uploadFileAPI } from "../../services/api.service";
 import { notifyError, notifySuccess } from "../../utils/notify";
+import AvatarUpload from "../common/AvatarUpload";
+import { UPLOAD_TYPE } from "../../constants/common.constant";
 
 const UserFormUpdate = (props) => {
   const { updateUser, setUpdateUser, isOpenModal, setIsOpenModal, getAllUser } = props;
@@ -11,7 +13,9 @@ const UserFormUpdate = (props) => {
     email: "",
     password: "",
     phone: "",
+    avatar:""
   });
+  const [avatar, setAvatar] = useState([]);
 
   // useEffect run if updateUser change value
   useEffect(() => {
@@ -22,9 +26,22 @@ const UserFormUpdate = (props) => {
         email: updateUser.email || "",
         password: "",
         phone: updateUser.phone || "",
+        avatar : updateUser.avatar || ""
       });
+
+      // fill avatar
+      if (updateUser.avatar) {
+        setAvatar([
+          {
+            url: `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${updateUser.avatar}`,
+          },
+        ]);
+      } else {
+        setAvatar([]);
+      }
     }
   }, [updateUser]);
+  
 
   const handleChange = (key, value) => {
     setForm({
@@ -34,26 +51,50 @@ const UserFormUpdate = (props) => {
   };
 
   const handleUpdateBtnClicked = async () => {
-    const res = await updateUserAPI(form);
+    //step 1: upload file
+    let avatarName = form.avatar; // if not change avatar
+    if (avatar.length === 0) {
+      // if without an avatar
+      avatarName = "";
+    } else if (avatar[0]?.file) {
+      // if change avatar
+      const formData = new FormData();
+      formData.append("fileImg", avatar[0].file);
+      const uploadRes = await uploadFileAPI(formData, UPLOAD_TYPE.AVATAR);
+      if (!uploadRes?.data) {
+        notifyError("Upload avatar failed");
+        return;
+      }
+      avatarName = uploadRes.data.fileUploaded;
+    }
+    const payload = {
+      ...form,
+      avatar: avatarName,
+    };
+    const res = await updateUserAPI(payload);
     if (res?.data) {
-          notifySuccess("Update user successfully");
-          // reset form
-          setForm({
-            _id: "",
-            fullName: "",
-            email: "",
-            phone: "",
-          });
-          setIsOpenModal(false);
-          await getAllUser();
-        } else {
-           const errors = res?.message;
-           const errorMessage = Array.isArray(errors)
-             ? errors.map((e, i) => <div key={i}>- {e}</div>)
-             : errors;
-           notifyError(errorMessage);
-        }
+      notifySuccess("Update user successfully");
+      // reset form
+      setForm({
+        _id: "",
+        fullName: "",
+        email: "",
+        phone: "",
+        avatar: "",
+      });
+      setAvatar([]);
+      setIsOpenModal(false);
+      setUpdateUser(null);
+      await getAllUser();
+    } else {
+      const errors = res?.message;
+      const errorMessage = Array.isArray(errors)
+        ? errors.map((e, i) => <div key={i}>- {e}</div>)
+        : errors;
+      notifyError(errorMessage);
+    }
   };
+
   return (
     <div className="user-form-update" style={{ margin: "20px 0" }}>
       <Modal
@@ -61,13 +102,17 @@ const UserFormUpdate = (props) => {
         open={isOpenModal}
         onOk={handleUpdateBtnClicked}
         onCancel={() => {
-            setIsOpenModal(false);
-            setUpdateUser(null);
+          setIsOpenModal(false);
+          setUpdateUser(null);
         }}
         maskClosable={false}
         okText={"UPDATE"}
       >
         <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
+          <div>
+            <span>Avatar</span>
+            <AvatarUpload avatar={avatar} setAvatar={setAvatar} />
+          </div>
           <div>
             <span>Id</span>
             <Input value={form._id} disabled />
@@ -98,6 +143,6 @@ const UserFormUpdate = (props) => {
       </Modal>
     </div>
   );
-};;;
+};
 
 export default UserFormUpdate;
