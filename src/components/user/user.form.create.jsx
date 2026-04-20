@@ -10,7 +10,7 @@ const UserFormCreate = (props) => {
     phone: "",
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { getAllUser } = props;
+  const { getUsers } = props;
   const handleChange = (key, value) => {
     setForm({ ...form, [key]: value });
   };
@@ -27,7 +27,7 @@ const UserFormCreate = (props) => {
         phone: "",
       });
       setIsModalOpen(false);
-      await getAllUser();
+      await getUsers();
     } else {
        const errors = res?.message;
        const errorMessage = Array.isArray(errors)

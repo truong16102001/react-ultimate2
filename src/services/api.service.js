@@ -17,6 +17,11 @@ const deleteUserAPI = (id) => {
   return axios.delete(`${API_URL.DELETE_USER}/${id}`);
 };
 
+const getUsersPaginateAPI = (current, pageSize) => {
+  const URL_BACKEND = `${API_URL.GET_ALL_USER}?current=${current}&pageSize=${pageSize}`;
+  return axios.get(URL_BACKEND);
+};
+
 const uploadFileAPI = (file, uploadType) => {
   return axios.post(API_URL.UPLOAD_FILE, file, {
     headers: {
@@ -26,4 +31,11 @@ const uploadFileAPI = (file, uploadType) => {
   });
 }
 
-export { createUserAPI, getAllUserAPI, updateUserAPI, deleteUserAPI, uploadFileAPI };
+export {
+  createUserAPI,
+  getAllUserAPI,
+  updateUserAPI,
+  deleteUserAPI,
+  uploadFileAPI,
+  getUsersPaginateAPI,
+};

@@ -6,7 +6,8 @@ import AvatarUpload from "../common/AvatarUpload";
 import { UPLOAD_TYPE } from "../../constants/common.constant";
 
 const UserFormUpdate = (props) => {
-  const { updateUser, setUpdateUser, isOpenModal, setIsOpenModal, getAllUser } = props;
+  const { updateUser, setUpdateUser, isOpenModal, setIsOpenModal, getUsers } =
+    props;
   const [form, setForm] = useState({
     _id:"",
     fullName: "",
@@ -85,7 +86,7 @@ const UserFormUpdate = (props) => {
       setAvatar([]);
       setIsOpenModal(false);
       setUpdateUser(null);
-      await getAllUser();
+      await getUsers();
     } else {
       const errors = res?.message;
       const errorMessage = Array.isArray(errors)
