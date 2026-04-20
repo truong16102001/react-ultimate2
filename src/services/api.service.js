@@ -31,6 +31,16 @@ const uploadFileAPI = (file, uploadType) => {
   });
 }
 
+const registerUserAPI = (fullName, email, password, phone) => {
+  const data = {
+    fullName: fullName,
+    email: email,
+    password: password,
+    phone: phone,
+  };
+  return axios.post(API_URL.REGISTER_USER, data);
+};
+
 export {
   createUserAPI,
   getAllUserAPI,
@@ -38,4 +48,5 @@ export {
   deleteUserAPI,
   uploadFileAPI,
   getUsersPaginateAPI,
+  registerUserAPI,
 };

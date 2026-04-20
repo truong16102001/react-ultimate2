@@ -4,4 +4,5 @@ export const API_URL = {
   UPDATE_USER: "/api/v1/user",
   DELETE_USER: "/api/v1/user",
   UPLOAD_FILE: "/api/v1/file/upload",
+  REGISTER_USER: "/api/v1/user/register",
 };
