@@ -1,5 +1,5 @@
 import axios from "./axios.customize";
-import { API_URL } from "../constants/api.constant";
+import { API_URL, COMMON } from "../constants/api.constant";
 
 const createUserAPI = (data) => {
   return axios.post(API_URL.CREATE_USER, data);
@@ -41,6 +41,15 @@ const registerUserAPI = (fullName, email, password, phone) => {
   return axios.post(API_URL.REGISTER_USER, data);
 };
 
+const loginAPI = (email, password) => {
+  const data = {
+    username: email,
+    password: password,
+    delay: COMMON.AUTH_DELAY,
+  };
+  return axios.post(API_URL.LOGIN, data);
+};
+
 export {
   createUserAPI,
   getAllUserAPI,
@@ -49,4 +58,5 @@ export {
   uploadFileAPI,
   getUsersPaginateAPI,
   registerUserAPI,
+  loginAPI
 };
