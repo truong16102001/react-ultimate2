@@ -8,6 +8,15 @@ const instance = axios.create({
 // REQUEST INTERCEPTOR
 instance.interceptors.request.use(
   function (config) {
+     if (
+       typeof window !== "undefined" &&
+       window &&
+       window.localStorage &&
+       window.localStorage.getItem("access_token")
+     ) {
+       config.headers.Authorization =
+         "Bearer " + window.localStorage.getItem("access_token");
+     }
     // Do something before the request is sent
     return config;
   },

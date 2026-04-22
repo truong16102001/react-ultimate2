@@ -10,6 +10,7 @@ import TodoApp from './components/todo/TodoApp.jsx';
 import Book from './routes/book.jsx';
 import Error from './routes/error.jsx';
 import { AuthProvider } from './components/context/auth.context.jsx';
+import PrivateRoute from './routes/private.jsx';
 
 const router = createBrowserRouter([
   {
@@ -17,10 +18,24 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <TodoApp /> }, // default render in homepage
-      { path: "users", element: <User /> },
-      { path: "books", element: <Book /> },
+      {
+        path: "users",
+        element: (
+          <PrivateRoute>
+            <User />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "books",
+        element: (
+          <PrivateRoute>
+            <Book />
+          </PrivateRoute>
+        ),
+      },
     ],
-    errorElement: <Error/>
+    errorElement: <Error />,
   },
   { path: "login", element: <Login /> },
   { path: "register", element: <Register /> },

@@ -6,26 +6,20 @@ export const AuthContext = createContext(null);
 // 2. provider
 export const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
+  const [isAppLoading, setIsAppLoading] = useState(true);
 
   // login
   const login = (userData) => {
-    setUser(userData);
+    setUser(userData.user);
+    localStorage.setItem("access_token", userData.access_token);
     // lưu localStorage (optional)
-    localStorage.setItem("user", JSON.stringify(userData));
+    //localStorage.setItem("user", JSON.stringify(userData.user));
   };
 
   // logout
   const logout = () => {
+    localStorage.removeItem("access_token");
     setUser(null);
-    localStorage.removeItem("user");
-  };
-
-  // load lại khi refresh
-  const loadUser = () => {
-    const data = localStorage.getItem("user");
-    if (data) {
-      setUser(JSON.parse(data));
-    }
   };
 
   const value = {
@@ -33,8 +27,9 @@ export const AuthProvider = (props) => {
     setUser,
     login,
     logout,
-    loadUser,
     isAuthenticated: !!user,
+    isAppLoading,
+    setIsAppLoading,
   };
     return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 };

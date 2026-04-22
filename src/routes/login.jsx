@@ -18,7 +18,7 @@ const Login= () => {
     if (res.data) {
       notifySuccess("Đăng nhập thành công");
       // lưu user vào context
-      login(res.data.user); 
+      login(res.data); 
       
       navigate("/");
     } else {
@@ -70,7 +70,13 @@ const Login= () => {
                 },
               ]}
             >
-              <Input.Password />
+              <Input.Password
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    form.submit();
+                  }
+                }}
+              />
             </Form.Item>
             <Form.Item>
               <div
@@ -80,7 +86,11 @@ const Login= () => {
                   alignItems: "center",
                 }}
               >
-                <Button type="primary" onClick={() => form.submit()} loading={loading}>
+                <Button
+                  type="primary"
+                  onClick={() => form.submit()}
+                  loading={loading}
+                >
                   Login
                 </Button>
                 <Link to="/">

@@ -2,9 +2,11 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   UsergroupAddOutlined,
+  LoginOutlined,
   HomeOutlined,
   AuditOutlined,
-  SettingOutlined,
+  AliwangwangOutlined,
+  PlusCircleOutlined 
 } from "@ant-design/icons";
 import { Menu, Avatar, Dropdown, Space } from "antd";
 import { AuthContext } from "../context/auth.context";
@@ -61,16 +63,19 @@ const Header = () => {
         {
           key: "logout",
           label: "Logout",
+          icon: <AliwangwangOutlined />,
         },
       ]
     : [
         {
           key: "login",
           label: <Link to="/login">Login</Link>,
+          icon: <LoginOutlined />,
         },
         {
           key: "register",
           label: <Link to="/register">Register</Link>,
+          icon: <PlusCircleOutlined />,
         },
       ];
 
@@ -122,7 +127,7 @@ const Header = () => {
       selectedKeys={[current]}
       mode="horizontal"
       items={items}
-      style={{ justifyContent: "space-between" }}
+      style={{ justifyContent: "space-around" }}
     />
   );
 };

@@ -50,6 +50,10 @@ const loginAPI = (email, password) => {
   return axios.post(API_URL.LOGIN, data);
 };
 
+const getAccountByAccessTokenAPI = () => {
+  return axios.get(API_URL.GET_ACCOUNT_BY_ACCESS_TOKEN);
+};
+
 export {
   createUserAPI,
   getAllUserAPI,
@@ -58,5 +62,6 @@ export {
   uploadFileAPI,
   getUsersPaginateAPI,
   registerUserAPI,
-  loginAPI
+  loginAPI,
+  getAccountByAccessTokenAPI,
 };
