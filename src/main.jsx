@@ -9,6 +9,7 @@ import './styles/global.css'
 import TodoApp from './components/todo/TodoApp.jsx';
 import Book from './routes/book.jsx';
 import Error from './routes/error.jsx';
+import { AuthProvider } from './components/context/auth.context.jsx';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
+  <AuthProvider>
     <RouterProvider router={router} />
+  </AuthProvider>,
   // </React.StrictMode>,
 );

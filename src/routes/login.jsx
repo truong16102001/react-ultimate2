@@ -1,19 +1,25 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { Button, Col, Divider, Form, Input, Row } from "antd";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginAPI } from "../services/api.service";
 import { notifyError, notifySuccess } from "../utils/notify";
+import { AuthContext } from "../components/context/auth.context";
 
 const Login= () => {
   const [form] = Form.useForm();
- const [loading, setLoading] = useState(false);
- const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const {login} = useContext(AuthContext);
+
   const onFinish = async (values) => {
     setLoading(true);
     const res = await loginAPI(values.email, values.password);
     if (res.data) {
       notifySuccess("Đăng nhập thành công");
+      // lưu user vào context
+      login(res.data.user); 
+      
       navigate("/");
     } else {
       const errors = res?.message;
