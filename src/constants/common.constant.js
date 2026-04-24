@@ -1,5 +1,5 @@
 const UPLOAD_TYPE = {
-  AVATAR: "avatar",
-  BOOK: "book",
+  SINGLE: "avatar",
+  MULTIPLE: "book",
 };
 export {UPLOAD_TYPE};

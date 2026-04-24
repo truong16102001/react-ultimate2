@@ -121,6 +121,7 @@ const ImageUploadCore = ({
         hidden
         multiple={multiple}
         onChange={handleChangeFile}
+        style={{ display: "none" }}
       />
 
       {/*  preview modal */}

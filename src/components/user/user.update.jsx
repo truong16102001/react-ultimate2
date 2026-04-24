@@ -61,7 +61,7 @@ const UserFormUpdate = (props) => {
       // if change avatar
       const formData = new FormData();
       formData.append("fileImg", avatar[0].file);
-      const uploadRes = await uploadFileAPI(formData, UPLOAD_TYPE.AVATAR);
+      const uploadRes = await uploadFileAPI(formData, UPLOAD_TYPE.SINGLE);
       if (!uploadRes?.data) {
         notifyError("Upload avatar failed");
         return;
