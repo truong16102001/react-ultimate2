@@ -54,6 +54,19 @@ const getAccountByAccessTokenAPI = () => {
   return axios.get(API_URL.GET_ACCOUNT_BY_ACCESS_TOKEN);
 };
 
+const logoutAPI = () => {
+  return axios.post(API_URL.LOGOUT);
+}
+
+const getBooksPaginateAPI = (current, pageSize) => {
+   const URL_BACKEND = `${API_URL.GET_ALL_BOOK}?current=${current}&pageSize=${pageSize}`;
+   return axios.get(URL_BACKEND);
+};
+
+const deleteBookAPI = (id) => {
+  return axios.delete(`${API_URL.DELETE_BOOK}/${id}`);
+};
+
 export {
   createUserAPI,
   getAllUserAPI,
@@ -64,4 +77,7 @@ export {
   registerUserAPI,
   loginAPI,
   getAccountByAccessTokenAPI,
+  logoutAPI,
+  getBooksPaginateAPI,
+  deleteBookAPI,
 };

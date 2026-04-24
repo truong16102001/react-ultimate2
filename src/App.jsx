@@ -23,6 +23,11 @@ function App() {
   };
 
   const fetchUserInfo = async () => {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      setIsAppLoading(false);
+      return;
+    }
     const res = await getAccountByAccessTokenAPI();
     await delay(COMMON.AUTH_DELAY);
     if (res.data) {

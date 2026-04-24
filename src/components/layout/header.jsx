@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import { Menu, Avatar, Dropdown, Space } from "antd";
 import { AuthContext } from "../context/auth.context";
+import { logoutAPI } from "../../services/api.service";
 const Header = () => {
   const [current, setCurrent] = useState("");
   const { user, logout, isAuthenticated } = useContext(AuthContext);
@@ -18,10 +19,16 @@ const Header = () => {
     setCurrent(e.key);
   };
   // handle dropdown click
-  const handleMenuClick = ({ key }) => {
+  const handleMenuClick =  async ({ key }) => {
     if (key === "logout") {
-      logout();
-      navigate("/login");
+      try {
+        await logoutAPI(); 
+      } catch (error) {
+        console.log("Logout API error:", error);
+      } finally {
+        logout();
+        navigate("/");
+      }
     }
   };
 
