@@ -11,10 +11,11 @@ import Book from './routes/book.jsx';
 import Error from './routes/error.jsx';
 import { AuthProvider } from './components/context/auth.context.jsx';
 import PrivateRoute from './routes/private.jsx';
+import { ROUTES } from './constants/router.constant.js';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: ROUTES.HOME,
     element: <App />,
     children: [
       { index: true, element: <TodoApp /> }, // default render in homepage

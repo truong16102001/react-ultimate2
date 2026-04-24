@@ -13,6 +13,7 @@ const BookTable = (props) => {
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [updateBook, setUpdateBook] = useState(null);
+    
   const columns = [
     {
       title: "No",

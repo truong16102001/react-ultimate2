@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   UsergroupAddOutlined,
@@ -11,23 +11,42 @@ import {
 import { Menu, Avatar, Dropdown, Space } from "antd";
 import { AuthContext } from "../context/auth.context";
 import { logoutAPI } from "../../services/api.service";
+import { ROUTES } from "../../constants/router.constant";
 const Header = () => {
   const [current, setCurrent] = useState("");
   const { user, logout, isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // map route → key
+  const routeMap = {
+    home: ROUTES.HOME,
+    users: ROUTES.USERS,
+    books: ROUTES.BOOKS,
+  };
+
+  useEffect(() => {
+    if (location?.pathname) {
+      const found = Object.keys(routeMap).find((key) =>
+        location.pathname.startsWith(routeMap[key]),
+      );
+
+      setCurrent(found || ROUTES.HOME);
+    }
+  }, [location]);
+
   const onClick = (e) => {
     setCurrent(e.key);
   };
   // handle dropdown click
-  const handleMenuClick =  async ({ key }) => {
+  const handleMenuClick = async ({ key }) => {
     if (key === "logout") {
       try {
-        await logoutAPI(); 
+        await logoutAPI();
       } catch (error) {
         console.log("Logout API error:", error);
       } finally {
         logout();
-        navigate("/");
+        navigate(ROUTES.HOME);
       }
     }
   };
@@ -76,12 +95,12 @@ const Header = () => {
     : [
         {
           key: "login",
-          label: <Link to="/login">Login</Link>,
+          label: <Link to={ROUTES.LOGIN}>Login</Link>,
           icon: <LoginOutlined />,
         },
         {
           key: "register",
-          label: <Link to="/register">Register</Link>,
+          label: <Link to={ROUTES.REGISTER}>Register</Link>,
           icon: <PlusCircleOutlined />,
         },
       ];
@@ -109,17 +128,17 @@ const Header = () => {
 
   const items = [
     {
-      label: <Link to={"/"}>Home</Link>,
+      label: <Link to={ROUTES.HOME}>Home</Link>,
       key: "home",
       icon: <HomeOutlined />,
     },
     {
-      label: <Link to={"/users"}>Users</Link>,
+      label: <Link to={ROUTES.USERS}>Users</Link>,
       key: "users",
       icon: <UsergroupAddOutlined />,
     },
     {
-      label: <Link to={"/books"}>Books</Link>,
+      label: <Link to={ROUTES.BOOKS}>Books</Link>,
       key: "books",
       icon: <AuditOutlined />,
     },
@@ -137,6 +156,6 @@ const Header = () => {
       style={{ justifyContent: "space-around" }}
     />
   );
-};
+};;
 
 export default Header;

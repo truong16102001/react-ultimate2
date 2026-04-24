@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../components/context/auth.context";
 import { Button, Result } from "antd";
 import { Link } from "react-router-dom";
+import { ROUTES } from "../constants/router.constant";
 
 const PrivateRoute = (props) => {
     const { user } = useContext(AuthContext);
@@ -15,7 +16,7 @@ const PrivateRoute = (props) => {
         subTitle={"Bạn cần đăng nhập để truy cập nguồn tài nguyên này."}
         extra={
           <Button type="primary">
-            <Link to="/">
+            <Link to={ROUTES.HOME}>
               <span>Back to homepage</span>
             </Link>
           </Button>

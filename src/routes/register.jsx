@@ -2,6 +2,7 @@ import { Button, Input, Form, Row, Col, Divider } from "antd";
 import { registerUserAPI } from "../services/api.service";
 import { notifyError, notifySuccess } from "../utils/notify";
 import { Link, useNavigate } from "react-router-dom";
+import { ROUTES } from "../constants/router.constant";
 
 const Register = () => {
   const [form] = Form.useForm();
@@ -17,7 +18,7 @@ const Register = () => {
     );
     if (res.data) {
       notifySuccess("Register user successfully");
-      navigate("/login");
+      navigate(ROUTES.LOGIN);
     } else {
       notifyError("Register user failed");
     }
@@ -105,7 +106,7 @@ const Register = () => {
           </Form>
           <Divider />
           <div>
-            Đã có tài khoản? <Link to={"/login"}>Đăng nhập tại đây</Link>
+            Đã có tài khoản? <Link to={ROUTES.HOME}>Đăng nhập tại đây</Link>
           </div>
         </fieldset>
       </Col>

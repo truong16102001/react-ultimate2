@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginAPI } from "../services/api.service";
 import { notifyError, notifySuccess } from "../utils/notify";
 import { AuthContext } from "../components/context/auth.context";
+import { ROUTES } from "../constants/router.constant";
 
 const Login= () => {
   const [form] = Form.useForm();
@@ -20,7 +21,7 @@ const Login= () => {
       // lưu user vào context
       login(res.data); 
       
-      navigate("/");
+      navigate(ROUTES.HOME);
     } else {
       const errors = res?.message;
       const errorMessage = Array.isArray(errors)
@@ -93,7 +94,7 @@ const Login= () => {
                 >
                   Login
                 </Button>
-                <Link to="/">
+                <Link to={ROUTES.HOME}>
                   Go to homepage <ArrowRightOutlined />
                 </Link>
               </div>
@@ -101,7 +102,7 @@ const Login= () => {
           </Form>
           <Divider />
           <div style={{ textAlign: "center" }}>
-            Chưa có tài khoản? <Link to={"/register"}>Đăng ký tại đây</Link>
+            Chưa có tài khoản? <Link to={ROUTES.REGISTER}>Đăng ký tại đây</Link>
           </div>
         </fieldset>
       </Col>
