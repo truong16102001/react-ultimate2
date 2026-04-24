@@ -1,6 +1,6 @@
 import ImageUploadCore from "../../common/ImageUploadCore";
 
-const BookImagesUpload = ({ images, setImages }) => {
+const MultipleUpload = ({ images, setImages }) => {
   return (
     <ImageUploadCore
       images={images}
@@ -11,4 +11,4 @@ const BookImagesUpload = ({ images, setImages }) => {
   );
 };
 
-export default BookImagesUpload;
+export default MultipleUpload;

@@ -47,10 +47,16 @@ const ImageUploadCore = ({
   };
 
   //  xoá ảnh
-  const handleRemove = (index) => {
-    const newList = images.filter((_, i) => i !== index);
-    setImages(newList);
-  };
+ const handleRemove = (index) => {
+   const removed = images[index];
+
+   if (removed?.preview) {
+     URL.revokeObjectURL(removed.preview);
+   }
+
+   const newList = images.filter((_, i) => i !== index);
+   setImages(newList);
+ };
 
   //  preview
   const handlePreview = (img) => {

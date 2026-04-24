@@ -2,7 +2,7 @@ import { Input, Modal } from "antd";
 import { useEffect, useState } from "react";
 import { updateUserAPI, uploadFileAPI } from "../../services/api.service";
 import { notifyError, notifySuccess } from "../../utils/notify";
-import AvatarUpload from "../common/AvatarUpload";
+import SingleUpload from "../common/SingleUpload";
 import { UPLOAD_TYPE } from "../../constants/common.constant";
 
 const UserFormUpdate = (props) => {
@@ -112,7 +112,7 @@ const UserFormUpdate = (props) => {
         <div style={{ display: "flex", gap: "15px", flexDirection: "column" }}>
           <div>
             <span>Avatar</span>
-            <AvatarUpload avatar={avatar} setAvatar={setAvatar} />
+            <SingleUpload image={avatar} setImage={setAvatar} />
           </div>
           <div>
             <span>Id</span>

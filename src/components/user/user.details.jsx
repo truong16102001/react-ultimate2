@@ -1,7 +1,7 @@
 import { Drawer, Button, Image } from "antd";
 import { useState, useEffect } from "react";
 import { notifyError, notifySuccess } from "../../utils/notify";
-import AvatarUpload from "../common/AvatarUpload";
+import SingleUpload from "../common/SingleUpload";
 
 const UserDetails = (props) => {
   const { userDetails, setUserDetails, isDetailsOpen, setIsDetailsOpen } =
@@ -50,7 +50,7 @@ const UserDetails = (props) => {
           <p>Role: {userDetails.role}</p> <br />
           <p>Avatar:</p>
           {/*  AVATAR */}
-          <AvatarUpload viewOnly={true} avatar={avatar} setAvatar={setAvatar} />
+          <SingleUpload viewOnly={true} image={avatar} setImage={setAvatar} />
         </>
       ) : (
         <p>No data</p>
