@@ -165,11 +165,8 @@ const BookTable = (props) => {
         setIsDetailsOpen={setIsDetailsOpen}
         setBookDetails={setBookDetails}
       />
-      ;
     </>
   );
-
-  
 };
 
 export default BookTable;

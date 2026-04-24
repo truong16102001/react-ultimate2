@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import UserFormCreate from "../components/user/user.form.create";
+import UserFormCreate from "../components/user/user.create";
 import UserTable from "../components/user/user.table";
 import { getAllUserAPI, getUsersPaginateAPI } from "../services/api.service";
 

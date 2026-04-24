@@ -63,6 +63,10 @@ const getBooksPaginateAPI = (current, pageSize) => {
    return axios.get(URL_BACKEND);
 };
 
+const createBookAPI = (data) => {
+  return axios.post(API_URL.CREATE_BOOK, data);
+};
+
 const deleteBookAPI = (id) => {
   return axios.delete(`${API_URL.DELETE_BOOK}/${id}`);
 };
@@ -80,4 +84,5 @@ export {
   logoutAPI,
   getBooksPaginateAPI,
   deleteBookAPI,
+  createBookAPI,
 };

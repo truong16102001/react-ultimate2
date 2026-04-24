@@ -10,6 +10,7 @@
    LOGOUT: "/api/v1/auth/logout",
    GET_ALL_BOOK: "/api/v1/book",
    DELETE_BOOK: "/api/v1/user",
+   CREATE_BOOK: "/api/v1/book",
  };
 
 const COMMON = {
