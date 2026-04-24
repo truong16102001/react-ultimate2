@@ -2,10 +2,14 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Image, Popconfirm, Table } from "antd";
 import { notifyError, notifySuccess } from "../../utils/notify";
 import { deleteBookAPI } from "../../services/api.service";
+import BookDetails from "./book.details";
+import { useState } from "react";
+import './book.css'
 
 const BookTable = (props) => {
   const { books, getBooks, current, pageSize, total, setCurrent, setPageSize } = props;
-    
+    const [bookDetails, setBookDetails] = useState(null);
+    const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const columns = [
     {
       title: "No",
@@ -68,7 +72,8 @@ const BookTable = (props) => {
         <div style={{ display: "flex", gap: "15px" }}>
           <EditOutlined
             style={{ cursor: "pointer", color: "orange" }}
-            onClick={() => {
+            onClick={(e) => {
+              e?.stopPropagation();
               console.log("Edit book", record);
               // TODO: mở modal update sau
             }}
@@ -82,7 +87,10 @@ const BookTable = (props) => {
             cancelText="No"
             placement="left"
           >
-            <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+            <DeleteOutlined
+              onClick={(e) => e.stopPropagation()}
+              style={{ cursor: "pointer", color: "red" }}
+            />
           </Popconfirm>
         </div>
       ),
@@ -141,9 +149,27 @@ const BookTable = (props) => {
           },
         }}
         onChange={onChange}
+        onRow={(record) => {
+          return {
+            onClick: () => {
+              setBookDetails(record);
+              setIsDetailsOpen(true);
+            },
+          };
+        }}
+        rowClassName={() => "clickable-row"}
       />
+      <BookDetails
+        bookDetails={bookDetails}
+        isDetailsOpen={isDetailsOpen}
+        setIsDetailsOpen={setIsDetailsOpen}
+        setBookDetails={setBookDetails}
+      />
+      ;
     </>
   );
+
+  
 };
 
 export default BookTable;
