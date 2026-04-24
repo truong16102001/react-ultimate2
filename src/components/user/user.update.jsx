@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { updateUserAPI, uploadFileAPI } from "../../services/api.service";
 import { notifyError, notifySuccess } from "../../utils/notify";
 import SingleUpload from "../common/SingleUpload";
-import { UPLOAD_TYPE } from "../../constants/common.constant";
 
 const UserFormUpdate = (props) => {
   const { updateUser, setUpdateUser, isOpenModal, setIsOpenModal, getUsers } =
@@ -61,7 +60,7 @@ const UserFormUpdate = (props) => {
       // if change avatar
       const formData = new FormData();
       formData.append("fileImg", avatar[0].file);
-      const uploadRes = await uploadFileAPI(formData, UPLOAD_TYPE.SINGLE);
+      const uploadRes = await uploadFileAPI(formData, "avatar");
       if (!uploadRes?.data) {
         notifyError("Upload avatar failed");
         return;

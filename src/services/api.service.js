@@ -71,6 +71,10 @@ const deleteBookAPI = (id) => {
   return axios.delete(`${API_URL.DELETE_BOOK}/${id}`);
 };
 
+const updateBookAPI = (data) => {
+  return axios.put(API_URL.UPDATE_BOOK, data);
+};
+
 export {
   createUserAPI,
   getAllUserAPI,
@@ -85,4 +89,5 @@ export {
   getBooksPaginateAPI,
   deleteBookAPI,
   createBookAPI,
+  updateBookAPI,
 };

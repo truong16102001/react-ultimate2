@@ -11,6 +11,7 @@
    GET_ALL_BOOK: "/api/v1/book",
    DELETE_BOOK: "/api/v1/user",
    CREATE_BOOK: "/api/v1/book",
+   UPDATE_BOOK: "/api/v1/book",
  };
 
 const COMMON = {

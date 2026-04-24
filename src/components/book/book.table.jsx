@@ -5,11 +5,14 @@ import { deleteBookAPI } from "../../services/api.service";
 import BookDetails from "./book.details";
 import { useState } from "react";
 import './book.css'
+import BookFormUpdate from "./book.update";
 
 const BookTable = (props) => {
   const { books, getBooks, current, pageSize, total, setCurrent, setPageSize } = props;
     const [bookDetails, setBookDetails] = useState(null);
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [updateBook, setUpdateBook] = useState(null);
   const columns = [
     {
       title: "No",
@@ -25,6 +28,7 @@ const BookTable = (props) => {
           <Image
             width={60}
             src={`${import.meta.env.VITE_BACKEND_URL}/images/book/${value}`}
+            preview={false}
           />
         );
       },
@@ -74,8 +78,8 @@ const BookTable = (props) => {
             style={{ cursor: "pointer", color: "orange" }}
             onClick={(e) => {
               e?.stopPropagation();
-              console.log("Edit book", record);
-              // TODO: mở modal update sau
+              setUpdateBook(record);
+              setIsOpenModal(true);
             }}
           />
 
@@ -164,6 +168,14 @@ const BookTable = (props) => {
         isDetailsOpen={isDetailsOpen}
         setIsDetailsOpen={setIsDetailsOpen}
         setBookDetails={setBookDetails}
+      />
+
+      <BookFormUpdate
+        updateBook={updateBook}
+        isOpenModal={isOpenModal}
+        setIsOpenModal={setIsOpenModal}
+        setUpdateBook={setUpdateBook}
+        getBooks={getBooks}
       />
     </>
   );
