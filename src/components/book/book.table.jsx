@@ -73,11 +73,13 @@ const BookTable = (props) => {
       title: "Action",
       key: "action",
       render: (_, record) => (
-        <div style={{ display: "flex", gap: "15px" }}>
+        <div
+          style={{ display: "flex", gap: "15px" }}
+          onClick={(e) => e.stopPropagation()}
+        >
           <EditOutlined
             style={{ cursor: "pointer", color: "orange" }}
             onClick={(e) => {
-              e?.stopPropagation();
               setUpdateBook(record);
               setIsOpenModal(true);
             }}
@@ -92,7 +94,6 @@ const BookTable = (props) => {
             placement="left"
           >
             <DeleteOutlined
-              onClick={(e) => e.stopPropagation()}
               style={{ cursor: "pointer", color: "red" }}
             />
           </Popconfirm>

@@ -9,7 +9,7 @@
    GET_ACCOUNT_BY_ACCESS_TOKEN: "/api/v1/auth/account",
    LOGOUT: "/api/v1/auth/logout",
    GET_ALL_BOOK: "/api/v1/book",
-   DELETE_BOOK: "/api/v1/user",
+   DELETE_BOOK: "/api/v1/book",
    CREATE_BOOK: "/api/v1/book",
    UPDATE_BOOK: "/api/v1/book",
  };
