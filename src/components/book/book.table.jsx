@@ -5,7 +5,7 @@ import { deleteBookAPI } from "../../services/api.service";
 import BookDetails from "./book.details";
 import { useState } from "react";
 import './book.css'
-import BookFormUpdate from "./book.update";
+import BookFormUpdate from "./book.update.uncontrolled";
 
 const BookTable = (props) => {
   const { books, getBooks, current, pageSize, total, setCurrent, setPageSize } = props;

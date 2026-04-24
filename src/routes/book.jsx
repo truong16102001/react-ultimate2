@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getBooksPaginateAPI } from "../services/api.service";
 import BookTable from "../components/book/book.table";
-import BookFormCreate from "../components/book/book.create.uncontrol";
+import BookFormCreate from "../components/book/book.create.uncontrolled";
 
 const Book = () => {
   const [books, setBooks] = useState([]);
